@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+        <modelVersion>4.0.0</modelVersion>
+
+        <groupId>com.lee</groupId>
+        <artifactId>hwa</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <packaging>pom</packaging>
+
+        <modules>
+            <module>hwa-eureka</module>
+            <module>hwa-eureka-client</module>
+            <module>hwa-eureka-feign</module>
+            <module>hwa-config-server</module>
+            <module>hwa-hystrix-dashboard</module>
+            <module>hwa-zuul</module>
+        </modules>
+
+        <parent>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-parent</artifactId>
+            <version>2.1.7.RELEASE</version>
+            <relativePath/>
+        </parent>
+
+        <properties>
+            <!-- Parent Version 父级版本-->
+            <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+            <!-- Environment Settings 环境设置-->
+            <java.version>1.8</java.version>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        </properties>
+
+        <dependencies>
+            <!--  服务注册中心必要依赖  -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+            </dependency>
+
+            <!--  测试依赖-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+            </dependency>
+
+            <!--  Lombok插件依赖  -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--  Hutool工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>4.6.3</version>
+            </dependency>
+        </dependencies>
+
+        <!-- 对版本号进行管理，不会实际导入jar-->
+        <dependencyManagement>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.cloud</groupId>    <!--  jar
+                        包身份限定  -->
+                    <artifactId>spring-cloud-dependencies</artifactId>
+                    <version>${spring-cloud.version}</version>
+                    <type>pom</type>
+                    <scope>import</scope>
+                </dependency>
+            </dependencies>
+        </dependencyManagement>
+
+        <build>
+            <pluginManagement>
+                <plugins>
+                    <!-- Compiler Plugin 编译器插件-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <showWarnings>true</showWarnings>
+                        </configuration>
+                    </plugin>
+
+                    <!--  编译器插件  指定JDK版本-->
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <target>${java.version}</target>
+                            <source>${java.version}</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </pluginManagement>
+        </build>
+        <repositories>
+            <!--  阿里云主仓库，代理了maven central和jcentral仓库-->
+            <repository>
+                <id>aliyun</id>
+                <name>aliyun</name>
+                <url>https://maven.aliyun.com/repository/public</url>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
+            <!--阿里云代理Spring 官方仓库-->
+            <repository>
+                <id>spring-milestones</id>
+                <name>Spring Milestones</name>
+                <url>https://maven.aliyun.com/repository/spring</url>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </repository>
+        </repositories>
+        <pluginRepositories>
+            <!--  阿里云代理Spring 插件仓库-->
+            <pluginRepository>
+                <id>spirng-plugin</id>
+                <name>spring-plugin</name>
+                <url>https://maven.aliyun.com/repository/spring-plugin</url>
+                <releases>
+                    <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                    <enabled>false</enabled>
+                </snapshots>
+            </pluginRepository>
+        </pluginRepositories>
+</project>

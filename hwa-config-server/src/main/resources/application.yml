@@ -1,0 +1,21 @@
+#注册中心端口
+server:
+  port: 8886
+spring:
+  application:
+    #服务名称
+    name: hwa-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Ahua0918/SpringCloudConfig/
+          search-paths: respo
+      label: master
+#主机名
+eureka:
+  client:
+    #eureka服务地址
+    #注明自己的服务注册中心的地址，与Eureka Server中的配置application.yml相对应
+    service-url:
+      defaultZone: http://localhost:1116/eureka/

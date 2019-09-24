@@ -1,0 +1,15 @@
+#注册中心端口
+server:
+  port: 8884
+spring:
+  application:
+    #服务名称
+    name: hwa-eureka-feign
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"

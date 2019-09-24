@@ -1,0 +1,17 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1116/eureka/
+server:
+  port: 8769
+spring:
+  application:
+    name: hwa-zuul
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: hwa-eureka-client
+    api-b:
+      path: /api-b/**
+      serviceId: hwa-eureka-feign
